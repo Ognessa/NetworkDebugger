@@ -1,4 +1,4 @@
-package com.ognessa.networkdebugger.ui.theme
+package com.ognessa.network_debugger.theme
 
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
@@ -33,7 +33,7 @@ private val LightColorScheme = lightColorScheme(
 )
 
 @Composable
-fun NetworkDebuggerExampleTheme(
+internal fun NetworkDebuggerTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
     // Dynamic color is available on Android 12+
     dynamicColor: Boolean = true,
@@ -51,7 +51,6 @@ fun NetworkDebuggerExampleTheme(
 
     MaterialTheme(
         colorScheme = colorScheme,
-        typography = Typography,
         content = content
     )
 }

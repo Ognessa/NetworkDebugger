@@ -104,11 +104,31 @@ class MainActivity : ComponentActivity() {
                 Button(
                     modifier = Modifier.fillMaxWidth(),
                     onClick = {
+                        viewModel.sendGetRequest()
+                        onDismiss()
+                    }
+                ) {
+                    Text(text = "GET request")
+                }
+
+                Button(
+                    modifier = Modifier.fillMaxWidth(),
+                    onClick = {
                         viewModel.sendPostRequest()
                         onDismiss()
                     }
                 ) {
-                    Text(text = "Send http request")
+                    Text(text = "POST request")
+                }
+
+                Button(
+                    modifier = Modifier.fillMaxWidth(),
+                    onClick = {
+                        viewModel.sendDeleteRequest()
+                        onDismiss()
+                    }
+                ) {
+                    Text(text = "DELETE request")
                 }
             }
         }

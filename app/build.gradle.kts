@@ -4,6 +4,7 @@ plugins {
     alias(libs.plugins.kotlin.compose)
     id("kotlin-kapt")
     id("com.google.dagger.hilt.android")
+    id("org.jetbrains.kotlin.plugin.serialization")
 }
 
 android {
@@ -63,6 +64,21 @@ dependencies {
     kapt(libs.hiltKapt)
 //    implementation(libs.hiltWork)
 //    kapt(libs.hiltWorkKapt)
+
+    implementation(libs.retrofit)
+    implementation(libs.retrofit2.kc.adapter)
+
+    implementation(libs.serializationJson)
+    implementation(libs.retrofit2.ks.converter)
+
+    implementation(libs.loggingInterceptor)
+    implementation(platform(libs.okhttp.bom))
+    implementation(libs.okhttp)
+
+    implementation("io.socket:socket.io-client:1.0.2") {
+        // excluding org.json which is provided by Android
+        exclude(group = "org.json", module = "json")
+    }
 
     implementation(project(":network_debugger"))
 }

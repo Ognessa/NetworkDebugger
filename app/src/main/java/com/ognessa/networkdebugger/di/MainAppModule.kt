@@ -1,5 +1,6 @@
 package com.ognessa.networkdebugger.di
 
+import com.ognessa.networkdebugger.network.http.repository.JsonPlaceholderRepository
 import com.ognessa.networkdebugger.ui.screen.MainViewModel
 import dagger.Module
 import dagger.Provides
@@ -11,7 +12,11 @@ import dagger.hilt.components.SingletonComponent
 class MainAppModule {
 
     @Provides
-    fun provideMainViewModel(): MainViewModel {
-        return MainViewModel()
+    fun provideMainViewModel(
+        repository: JsonPlaceholderRepository
+    ): MainViewModel {
+        return MainViewModel(
+            repository = repository
+        )
     }
 }

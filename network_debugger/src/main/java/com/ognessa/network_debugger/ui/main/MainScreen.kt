@@ -30,6 +30,7 @@ import com.ognessa.network_debugger.R
 import com.ognessa.network_debugger.model.HttpRequestEntity
 import com.ognessa.network_debugger.model.SocketRequestEntity
 import com.ognessa.network_debugger.model.TabTypes
+import com.ognessa.network_debugger.storage.RequestsStorage
 import com.ognessa.network_debugger.theme.LocalColors
 import com.ognessa.network_debugger.theme.LocalDimens
 
@@ -63,8 +64,8 @@ internal fun MainScreen() {
                 modifier = Modifier
                     .fillMaxWidth()
                     .weight(1f),
-                httpList = emptyList(),
-                socketList = emptyList(),
+                httpList = RequestsStorage.getHttpRequestList(),
+                socketList = RequestsStorage.getSocketRequestsList(),
                 selectedTab = selected
             )
         }

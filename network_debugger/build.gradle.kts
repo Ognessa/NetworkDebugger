@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
+    `maven-publish`
 }
 
 android {
@@ -10,6 +11,9 @@ android {
 
     defaultConfig {
         minSdk = 21
+
+        group = "com.ognessa"
+        version = "0.1.0"
 
         consumerProguardFiles("consumer-rules.pro")
     }
@@ -34,6 +38,19 @@ android {
     }
     kotlinOptions {
         jvmTarget = "11"
+    }
+}
+
+afterEvaluate {
+    publishing {
+        publications {
+
+            create<MavenPublication>("maven") {
+                groupId = "com.ognessa"
+                artifactId = "network_debugger"
+                version = "0.1.0"
+            }
+        }
     }
 }
 

@@ -81,4 +81,5 @@ dependencies {
     }
 
     implementation(project(":network_debugger"))
+//    implementation("com.github.Ognessa.NetworkDebugger:network_debugger:0.1.0")
 }

@@ -6,6 +6,7 @@ lifecycleRuntimeKtx = "2.8.7"
 activityCompose = "1.10.0"
 composeBom = "2025.01.01"
 appcompat = "1.7.0"
+composeNavigation = "2.8.6"
 
 # HILT
 hilt = "2.51.1"
@@ -24,6 +25,7 @@ androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = 
 androidx-lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycleRuntimeKtx" }
 androidx-activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "activityCompose" }
 androidx-compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "composeBom" }
+androidx-compose-navigation = { group = "androidx.navigation", name = "navigation-compose", version.ref = "composeNavigation" }
 androidx-ui = { group = "androidx.compose.ui", name = "ui" }
 androidx-ui-graphics = { group = "androidx.compose.ui", name = "ui-graphics" }
 androidx-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling" }
@@ -45,6 +47,7 @@ retrofit2-kc-adapter = { module = "com.jakewharton.retrofit:retrofit2-kotlin-cor
 
 serializationJson = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "serializationJson" }
 retrofit2-ks-converter = { group = "com.jakewharton.retrofit", name = "retrofit2-kotlinx-serialization-converter", version = "1.0.0" }
+gson = { group = "com.google.code.gson", name = "gson", version = "2.8.0" }
 
 okhttp-bom = { group = "com.squareup.okhttp3", name = "okhttp-bom", version = "4.12.0" }
 okhttp = { group = "com.squareup.okhttp3", name = "okhttp" }

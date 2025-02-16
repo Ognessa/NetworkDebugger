@@ -42,6 +42,7 @@ dependencies {
     implementation(libs.androidx.appcompat)
 
     implementation(libs.androidx.activity.compose)
+    implementation(libs.androidx.compose.navigation)
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.ui)
     implementation(libs.androidx.ui.graphics)
@@ -51,6 +52,8 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
 
     implementation(libs.retrofit)
+
+    implementation(libs.gson)
 
     implementation("nl.qbusict:cupboard:2.2.0")
 }

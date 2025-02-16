@@ -1,5 +1,7 @@
 package com.ognessa.network_debugger.model
 
+import android.net.Uri
+import com.ognessa.network_debugger.util.FormatUtils
 import okhttp3.Headers
 import java.util.UUID
 
@@ -144,7 +146,7 @@ internal class HttpRequestEntity {
         responseBodyIsPlainText = boolean
     }
 
-    fun setResponseBodyIsPlainText(): Boolean = responseBodyIsPlainText
+    fun getResponseBodyIsPlainText(): Boolean = responseBodyIsPlainText
 
     fun setResponseBody(body: String) {
         responseBody = body
@@ -159,5 +161,86 @@ internal class HttpRequestEntity {
             responseCode == 0 -> Status.Requested
             else -> Status.Complete
         }
+    }
+
+    fun isSsl(): Boolean {
+        return Uri.parse(requestUrl).scheme.orEmpty().lowercase() == "https"
+    }
+
+    //size
+    fun getRequestSizeString(): String {
+        return formatBytes(requestContentLength)
+    }
+
+    fun getResponseSizeString(): String {
+        return formatBytes(responseContentLength)
+    }
+
+    fun getTotalSizeString(): String {
+        return formatBytes(requestContentLength + responseContentLength)
+    }
+
+    //headers
+    fun getRequestHeadersString(): String {
+        return getRequestHeaders()?.let { FormatUtils.formatHeaders(it) } ?: ""
+    }
+
+    fun getResponseHeadersString(): String {
+        return getResponseHeaders()?.let { FormatUtils.formatHeaders(it) } ?: ""
+    }
+
+    //body
+    fun getFormattedRequestBody(): String {
+        return formatBody(requestBody, requestContentType)
+    }
+
+    fun getFormattedResponseBody(): String {
+        return formatBody(responseBody, responseContentType)
+    }
+
+    private fun formatBody(body: String, contentType: String): String {
+        if (contentType.lowercase().contains("json")) {
+            return FormatUtils.formatJson(body)
+        } else if (contentType.lowercase().contains("xml")) {
+            return FormatUtils.formatXml(body)
+        } else {
+            return body
+        }
+    }
+
+    private fun formatBytes(bytes: Long): String {
+        return FormatUtils.formatByteCount(bytes, true)
+    }
+
+    fun allDataAsString(): String {
+        val startHeaders = getRequestHeadersString()
+        val startBody = getFormattedRequestBody()
+        val startIsPlain = getRequestBodyIsPlainText()
+
+        val endHeaders = getResponseHeadersString()
+        val endBody = getResponseBody()
+        val endIsPlain = getResponseBodyIsPlainText()
+
+        val overview = "[Overview]\n" +
+                "Method: ${getRequestMethod()}\n" +
+                "Protocol: ${getProtocol()}\n" +
+                "Status: ${getStatus()}\n" +
+                "Response code: ${getResponseCode()}\n" +
+                "SSL: ${if (isSsl()) "Yes" else "No"}\n" +
+                "Request time: ${getRequestDate()}\n" +
+                "Response time: ${getResponseDate()}" +
+                "Duration: ${getTookMs()} ms\n" +
+                "Request size: ${getRequestSizeString()}\n" +
+                "Response size: ${getResponseSizeString()}\n" +
+                "Total size: ${getTotalSizeString()}"
+
+        val request = "[Request]\n" +
+                (if (startHeaders.isNotEmpty()) startHeaders + "\n" else "") +
+                (if (startIsPlain.not()) "(encoded or binary body omitted)" else startBody)
+
+        val response = "[Response]\n" +
+                (if (endIsPlain.not()) "(encoded or binary body omitted)" else endBody)
+
+        return overview + "\n\n" + request + "\n\n" + response
     }
 }

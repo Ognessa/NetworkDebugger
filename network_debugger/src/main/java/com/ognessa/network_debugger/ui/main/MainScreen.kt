@@ -1,6 +1,7 @@
 package com.ognessa.network_debugger.ui.main
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -37,11 +38,14 @@ import com.ognessa.network_debugger.theme.LocalDimens
 @Preview
 @Composable
 private fun MainScreenPreview() {
-    MainScreen()
+    MainScreen({}, {})
 }
 
 @Composable
-internal fun MainScreen() {
+internal fun MainScreen(
+    onHttpRequestPressed: (HttpRequestEntity) -> Unit,
+    onSocketRequestPressed: (SocketRequestEntity) -> Unit
+) {
     val tabs by remember { mutableStateOf(TabTypes.entries) }
     var selected by remember { mutableStateOf(TabTypes.HTTP) }
 
@@ -66,7 +70,9 @@ internal fun MainScreen() {
                     .weight(1f),
                 httpList = RequestsStorage.getHttpRequestList(),
                 socketList = RequestsStorage.getSocketRequestsList(),
-                selectedTab = selected
+                selectedTab = selected,
+                onHttpRequestPressed = onHttpRequestPressed,
+                onSocketRequestPressed = onSocketRequestPressed
             )
         }
     }
@@ -125,7 +131,9 @@ private fun RequestsList(
     modifier: Modifier = Modifier,
     httpList: List<HttpRequestEntity>,
     socketList: List<SocketRequestEntity>,
-    selectedTab: TabTypes
+    selectedTab: TabTypes,
+    onHttpRequestPressed: (HttpRequestEntity) -> Unit,
+    onSocketRequestPressed: (SocketRequestEntity) -> Unit
 ) {
     Column(
         modifier = modifier
@@ -135,7 +143,8 @@ private fun RequestsList(
                 httpList.forEach { item ->
                     HttpRequestItem(
                         modifier = Modifier.fillMaxWidth(),
-                        entity = item
+                        entity = item,
+                        onClick = { onHttpRequestPressed(item) }
                     )
                 }
             }
@@ -144,7 +153,8 @@ private fun RequestsList(
                 socketList.forEach { item ->
                     SocketRequestItem(
                         modifier = Modifier.fillMaxWidth(),
-                        entity = item
+                        entity = item,
+                        onClick = { onSocketRequestPressed(item) }
                     )
                 }
             }
@@ -155,7 +165,8 @@ private fun RequestsList(
 @Composable
 private fun HttpRequestItem(
     modifier: Modifier = Modifier,
-    entity: HttpRequestEntity
+    entity: HttpRequestEntity,
+    onClick: () -> Unit
 ) {
     val statusColor = when {
         entity.getStatus() == HttpRequestEntity.Status.Failed -> LocalColors.current.transactionStatusError
@@ -167,7 +178,10 @@ private fun HttpRequestItem(
         else -> LocalColors.current.transactionStatusDefault
     }
 
-    Row(modifier = modifier.height(IntrinsicSize.Min)) {
+    Row(modifier = modifier
+        .height(IntrinsicSize.Min)
+        .clickable { onClick() }
+    ) {
         Box(
             modifier = Modifier
                 .fillMaxHeight()
@@ -206,7 +220,8 @@ private fun HttpRequestItem(
 @Composable
 private fun SocketRequestItem(
     modifier: Modifier = Modifier,
-    entity: SocketRequestEntity
+    entity: SocketRequestEntity,
+    onClick: () -> Unit
 ) {
     //TODO
 }

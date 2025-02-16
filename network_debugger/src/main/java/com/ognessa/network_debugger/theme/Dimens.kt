@@ -9,9 +9,15 @@ internal val LocalDimens = compositionLocalOf { Dimens() }
 internal class Dimens {
     val toolbarHorizontalPadding: Dp = 16.dp
     val toolbarVerticalPadding: Dp = 12.dp
+    val toolbarSpace: Dp = 8.dp
 
     val tabsPadding: Dp = 8.dp
 
+    val iconSize: Dp = 40.dp
+    val iconPadding: Dp = 6.dp
+
     val transactionIndicatorWidth: Dp = 20.dp
-    val transactionItemsSpaceSize: Dp = 8.dp
+    val transactionItemsSpaceSize: Dp = 16.dp
+
+    val contentHorizontalPadding: Dp = 16.dp
 }

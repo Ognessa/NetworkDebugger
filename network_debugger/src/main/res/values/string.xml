@@ -6,6 +6,13 @@
     <string name="http_list_title">Http</string>
     <string name="socket_list_title">Socket</string>
 
+    <!--Http details-->
+    <string name="http_details_title">Details</string>
+
+    <string name="overview_title">Overview</string>
+    <string name="request_title">Request</string>
+    <string name="response_title">Response</string>
+
     <!--Network debugger-->
     <string name="body_unexpected_eof">\n\n--- Unexpected end of content ---</string>
     <string name="body_content_truncated">\n\n--- Content truncated ---</string>

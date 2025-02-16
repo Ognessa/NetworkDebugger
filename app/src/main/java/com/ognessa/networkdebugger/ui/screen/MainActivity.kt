@@ -63,7 +63,6 @@ class MainActivity : ComponentActivity() {
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            //TODO continue here add http requests
             Button(
                 modifier = Modifier,
                 onClick = { showHttpDialog = true }

@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
+    `maven-publish`
 }
 
 android {
@@ -34,6 +35,29 @@ android {
     }
     kotlinOptions {
         jvmTarget = "11"
+    }
+}
+
+publishing {
+    publications {
+        create<MavenPublication>("maven") {
+            groupId = "com.ognessa"
+            artifactId = "network_debugger"
+            version = "0.1.0"
+
+            artifact("$buildDir/outputs/aar/network_debugger-debug.aar")
+        }
+    }
+
+    repositories {
+        maven {
+            name = "NetworkDebugger"
+            url = uri("https://maven.pkg.github.com/Ognessa/NetworkDebugger")
+//            credentials {
+//                username = System.getenv("GITHUB_USER")
+//                password = System.getenv("GITHUB_TOKEN")
+//            }
+        }
     }
 }
 

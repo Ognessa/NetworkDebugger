@@ -7,3 +7,11 @@ plugins {
     id("org.jetbrains.kotlin.plugin.serialization") version "1.9.10"
     id("com.google.dagger.hilt.android") version "2.51.1" apply false
 }
+
+buildscript {
+    repositories {
+        google()
+        mavenCentral()
+        maven { setUrl("https://jitpack.io") }
+    }
+}
